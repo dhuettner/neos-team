@@ -25,6 +25,8 @@
 'Waterproof.Team:Document.Person':
   superTypes:
     'Neos.Neos:Document': true
+    # Liefert taxonomyReferences samt Sitegeist-Editor mit.
+    'Sitegeist.Taxonomy:Mixin.TaxonomyReferences': true
   ui:
     label: 'Person'
     icon: 'user'
@@ -36,9 +38,6 @@
         contact:
           label: 'Kontakt'
           position: 30
-        departments:
-          label: 'Abteilungen'
-          position: 40
   properties:
     # Der Seitentitel trägt den vollständigen Namen; hier stehen nur die Teile,
     # die für Sortierung und Anrede getrennt gebraucht werden.
@@ -108,17 +107,6 @@
         inspector:
           group: 'contact'
           position: 30
-    taxonomyReferences:
-      type: references
-      ui:
-        label: 'Abteilungen'
-        reloadIfChanged: true
-        inspector:
-          group: 'departments'
-          editorOptions:
-            nodeTypes: ['Sitegeist.Taxonomy:Taxonomy']
-            startingPoint: '/<Sitegeist.Taxonomy:Root>'
-            placeholder: 'Abteilungen zuweisen'
   childNodes:
     main:
       type: 'Neos.Neos:ContentCollection'

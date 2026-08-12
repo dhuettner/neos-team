@@ -9,39 +9,64 @@ prototype(Waterproof.Team:Document.TeamIndex) < prototype(Neos.Neos:Page) {
 
 prototype(Waterproof.Team:Content.TeamIndexBody) < prototype(Neos.Fusion:Component) {
     _persons = ${q(documentNode).children('[instanceof Waterproof.Team:Document.Person]').get()}
-    _columns = ${q(documentNode).property('columns') || 'cols3'}
 
     renderer = afx`
         <div class="mx-auto max-w-7xl px-4 py-16">
-            <Waterproof.Team:Component.PersonCollection
-                items={props._persons}
-                columns={props._columns}
-            />
+            <Waterproof.Team:Component.PersonCollection items={props._persons} />
         </div>
     `
+
+    # Ohne Tag am Teilbaum bliebe die Liste stehen, bis der Cache geleert wird.
+    @cache {
+        mode = 'cached'
+        entryIdentifier {
+            node = ${Neos.Caching.entryIdentifierForNode(documentNode)}
+        }
+        entryTags {
+            1 = ${Neos.Caching.descendantOfTag(documentNode)}
+            2 = ${Neos.Caching.nodeTag(documentNode)}
+        }
+    }
 }
 
 ##
 # Detailseite einer Person.
 #
-# Ist `hasDetailPage` nicht gesetzt, liefert die Seite im Frontend 404.
-# Im Backend bleibt sie bearbeitbar, damit die Redaktion sie vorbereiten kann.
+# Ist `hasDetailPage` nicht gesetzt, antwortet die Seite im Frontend mit 404.
+# Der Statuscode wird am Page-Objekt gesetzt, nicht im Body: `body` bleibt
+# der Join aus Neos.Neos:Page, sonst verschwindet dessen Unterpfad
+# `javascripts` und damit alles, was ein Site-Package dort einhängt.
+# Im Backend bleibt die Seite bearbeitbar, damit die Redaktion sie vorbereiten kann.
 #
 prototype(Waterproof.Team:Document.Person) < prototype(Neos.Neos:Page) {
     @context.detailPageActive = ${q(documentNode).property('hasDetailPage')}
 
-    body = Neos.Fusion:Case {
-        disabled {
-            condition = ${!detailPageActive && !renderingMode.isEdit}
-            renderer = Neos.Fusion:Http.ResponseHead {
-                statusCode = 404
+    httpResponseHead.statusCode = ${(!detailPageActive && !renderingMode.isEdit) ? 404 : 200}
+
+    body {
+        content = Neos.Fusion:Case {
+            disabled {
+                condition = ${!detailPageActive && !renderingMode.isEdit}
+                renderer = Waterproof.Team:Content.PersonNotFound
+            }
+            default {
+                condition = true
+                renderer = Waterproof.Team:Content.PersonBody
             }
         }
-        default {
-            condition = true
-            renderer = Waterproof.Team:Content.PersonBody
-        }
     }
+}
+
+##
+# Ausgabe für abgeschaltete Detailseiten. Bewusst schlicht; ein Site-Package
+# überschreibt sie mit seiner eigenen Fehlerseite.
+#
+prototype(Waterproof.Team:Content.PersonNotFound) < prototype(Neos.Fusion:Component) {
+    renderer = afx`
+        <div class="mx-auto max-w-3xl px-4 py-24 text-center">
+            <h1 class="text-3xl font-bold">Seite nicht gefunden</h1>
+        </div>
+    `
 }
 
 prototype(Waterproof.Team:Content.PersonBody) < prototype(Neos.Fusion:Component) {
@@ -58,8 +83,8 @@ prototype(Waterproof.Team:Content.PersonBody) < prototype(Neos.Fusion:Component)
                 <Neos.Neos:ImageTag
                     asset={props._portrait}
                     maximumWidth={400}
-                    alt={props._name}
-                    class="w-48 rounded-3xl object-cover"
+                    attributes.alt={props._name}
+                    attributes.class="w-48 rounded-3xl object-cover"
                     @if.hasPortrait={props._portrait}
                 />
                 <div class="flex flex-col gap-2">

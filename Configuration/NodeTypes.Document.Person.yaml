@@ -83,7 +83,7 @@
           group: 'person'
           position: 50
         help:
-          message: 'Ist die Detailseite aus, verlinken die Kacheln nicht und die Seite ist nicht aufrufbar.'
+          message: i18n
     phone:
       type: string
       ui:
@@ -126,6 +126,7 @@
   constraints:
     nodeTypes:
       '*': false
+      'Neos.Neos:Document': false
       'Waterproof.Team:Document.Person': true
   childNodes:
     main:

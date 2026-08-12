@@ -35,6 +35,9 @@
             <trans-unit id="properties.room" xml:space="preserve" approved="yes">
                 <source>Room</source>
             </trans-unit>
+            <trans-unit id="properties.hasDetailPage.ui.help.message" xml:space="preserve" approved="yes">
+                <source>If the detail page is off, cards do not link and the page is not reachable.</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

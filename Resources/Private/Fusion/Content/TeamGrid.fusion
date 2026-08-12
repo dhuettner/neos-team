@@ -8,7 +8,7 @@ prototype(Waterproof.Team:Content.TeamGrid) < prototype(Neos.Neos:ContentCompone
     # Referenzen über referenceNodes() lesen; property() greift dafür nur
     # über eine als deprecated markierte Rückfallebene.
     _source = ${q(node).referenceNodes('source').get(0)}
-    _departmentIds = ${Array.map(q(node).referenceNodes('departmentFilter').get(), taxon => taxon.aggregateId.value)}
+    _departments = ${q(node).referenceNodes('departmentFilter').get()}
 
     _index = ${this._source ? this._source : q(site).find('[instanceof Waterproof.Team:Document.TeamIndex]').get(0)}
 
@@ -16,15 +16,20 @@ prototype(Waterproof.Team:Content.TeamGrid) < prototype(Neos.Neos:ContentCompone
         ? q(this._index).children('[instanceof Waterproof.Team:Document.Person]').get()
         : []}
 
-    # Filterung in Eel statt über eine Fizzle-Bedingung, weil Referenzen nicht
-    # Teil der Property-Filter sind. Verglichen werden die AggregateIds, nicht
-    # die Node-Objekte: ein == über zwei Node-Instanzen wäre ein tiefer
-    # Objektvergleich und weder billig noch verlässlich.
-    _persons = ${Array.length(this._departmentIds) > 0
-        ? Array.filter(this._allPersons, person => Array.some(
-            Array.map(q(person).referenceNodes('taxonomyReferences').get(), taxon => taxon.aggregateId.value),
-            assigned => Array.some(this._departmentIds, wanted => wanted == assigned)
-          ))
+    # Gefiltert wird von der Taxonomie aus: backReferenceNodes liefert alle
+    # Knoten, die auf die gewählten Abteilungen verweisen.
+    #
+    # Bewusst kein Array.filter mit Eel-Closure. Zwei Anläufe scheiterten:
+    # 1. ${this._departmentIds} innerhalb der Closure löst nicht auf.
+    # 2. Der Umweg über @context ebenfalls nicht, weil @context ausgewertet
+    #    wird, bevor die Properties des Prototyps vorliegen — ${this.…} ist
+    #    dort noch leer.
+    # Beide Male war das Prädikat immer wahr und der Filter stillschweigend
+    # wirkungslos; die Liste sah dabei vollständig und plausibel aus.
+    # Kontextvariablen aus dem Request funktionieren in Closures dagegen,
+    # siehe den Kategoriefilter in Waterproof.News.
+    _persons = ${Array.length(this._departments) > 0
+        ? q(this._departments).backReferenceNodes('taxonomyReferences').filter('[instanceof Waterproof.Team:Document.Person]').get()
         : this._allPersons}
 
     renderer = afx`

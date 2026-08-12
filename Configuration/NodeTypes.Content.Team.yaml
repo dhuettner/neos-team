@@ -3,28 +3,28 @@
     'Neos.Neos:Content': true
     'Waterproof.Team:Mixin.ColumnLayout': true
   ui:
-    label: 'Team-Übersicht'
+    label: i18n
     icon: 'users'
     group: 'structure'
     inspector:
       groups:
         team:
-          label: 'Team'
+          label: i18n
           position: 10
         layout:
-          label: 'Darstellung'
+          label: i18n
           position: 20
   properties:
     headline:
       type: string
       defaultValue: 'Unser Team'
       ui:
-        label: 'Überschrift'
+        label: i18n
         inlineEditable: true
     source:
       type: reference
       ui:
-        label: 'Teamübersicht'
+        label: i18n
         reloadIfChanged: true
         inspector:
           group: 'team'
@@ -35,7 +35,7 @@
     departmentFilter:
       type: references
       ui:
-        label: 'Nur diese Abteilungen'
+        label: i18n
         reloadIfChanged: true
         inspector:
           group: 'team'
@@ -52,24 +52,24 @@
   superTypes:
     'Neos.Neos:Content': true
   ui:
-    label: 'Ansprechpartner'
+    label: i18n
     icon: 'user'
     group: 'structure'
     inspector:
       groups:
         person:
-          label: 'Person'
+          label: i18n
           position: 10
   properties:
     headline:
       type: string
       ui:
-        label: 'Überschrift'
+        label: i18n
         inlineEditable: true
     person:
       type: reference
       ui:
-        label: 'Person'
+        label: i18n
         reloadIfChanged: true
         inspector:
           group: 'person'

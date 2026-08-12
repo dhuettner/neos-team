@@ -5,7 +5,7 @@
       type: string
       defaultValue: 'cols3'
       ui:
-        label: 'Spalten'
+        label: i18n
         reloadIfChanged: true
         inspector:
           group: 'layout'
@@ -14,13 +14,13 @@
           editorOptions:
             values:
               cols1:
-                label: 'Einspaltig'
+                label: i18n
               cols2:
-                label: 'Zweispaltig'
+                label: i18n
               cols3:
-                label: 'Dreispaltig'
+                label: i18n
               cols4:
-                label: 'Vierspaltig'
+                label: i18n
 
 'Waterproof.Team:Document.Person':
   superTypes:
@@ -28,15 +28,15 @@
     # Liefert taxonomyReferences samt Sitegeist-Editor mit.
     'Sitegeist.Taxonomy:Mixin.TaxonomyReferences': true
   ui:
-    label: 'Person'
+    label: i18n
     icon: 'user'
     inspector:
       groups:
         person:
-          label: 'Person'
+          label: i18n
           position: 20
         contact:
-          label: 'Kontakt'
+          label: i18n
           position: 30
   properties:
     # Der Seitentitel trägt den vollständigen Namen; hier stehen nur die Teile,
@@ -44,7 +44,7 @@
     firstName:
       type: string
       ui:
-        label: 'Vorname'
+        label: i18n
         reloadIfChanged: true
         inspector:
           group: 'person'
@@ -52,7 +52,7 @@
     lastName:
       type: string
       ui:
-        label: 'Nachname'
+        label: i18n
         reloadIfChanged: true
         inspector:
           group: 'person'
@@ -60,7 +60,7 @@
     jobTitle:
       type: string
       ui:
-        label: 'Funktion'
+        label: i18n
         reloadIfChanged: true
         inspector:
           group: 'person'
@@ -68,7 +68,7 @@
     portrait:
       type: 'Neos\Media\Domain\Model\ImageInterface'
       ui:
-        label: 'Porträt'
+        label: i18n
         reloadIfChanged: true
         inspector:
           group: 'person'
@@ -77,7 +77,7 @@
       type: boolean
       defaultValue: false
       ui:
-        label: 'Detailseite aktiv'
+        label: i18n
         reloadIfChanged: true
         inspector:
           group: 'person'
@@ -87,14 +87,14 @@
     phone:
       type: string
       ui:
-        label: 'Telefon'
+        label: i18n
         inspector:
           group: 'contact'
           position: 10
     email:
       type: string
       ui:
-        label: 'E-Mail'
+        label: i18n
         inspector:
           group: 'contact'
           position: 20
@@ -103,7 +103,7 @@
     room:
       type: string
       ui:
-        label: 'Zimmer'
+        label: i18n
         inspector:
           group: 'contact'
           position: 30
@@ -116,12 +116,12 @@
     'Neos.Neos:Document': true
     'Waterproof.Team:Mixin.ColumnLayout': true
   ui:
-    label: 'Teamübersicht'
+    label: i18n
     icon: 'users'
     inspector:
       groups:
         layout:
-          label: 'Darstellung'
+          label: i18n
           position: 20
   constraints:
     nodeTypes:

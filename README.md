@@ -59,6 +59,10 @@ Jede Person trägt die Eigenschaft `hasDetailPage`, standardmäßig aus:
 | `Waterproof.Team:Component.PersonCollection` | Raster um die Karten |
 | `Waterproof.Team:Component.GridClass` | Zuordnung Spaltenwert zu Klassen |
 
+## Sprachen
+
+Backend-Labels liegen als XLIFF in `Resources/Private/Translations/` für Deutsch und Englisch vor.
+
 ## Lizenz
 
 MIT.

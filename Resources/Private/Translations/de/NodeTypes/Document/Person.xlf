@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file original="" product-name="Waterproof.Team" source-language="en" datatype="plaintext" target-language="de">
+        <body>
+            <trans-unit id="ui.label" xml:space="preserve" approved="yes">
+                <source>Person</source>
+                <target xml:lang="de">Person</target>
+            </trans-unit>
+            <trans-unit id="ui.inspector.groups.person" xml:space="preserve" approved="yes">
+                <source>Person</source>
+                <target xml:lang="de">Person</target>
+            </trans-unit>
+            <trans-unit id="ui.inspector.groups.contact" xml:space="preserve" approved="yes">
+                <source>Contact</source>
+                <target xml:lang="de">Kontakt</target>
+            </trans-unit>
+            <trans-unit id="properties.firstName" xml:space="preserve" approved="yes">
+                <source>First name</source>
+                <target xml:lang="de">Vorname</target>
+            </trans-unit>
+            <trans-unit id="properties.lastName" xml:space="preserve" approved="yes">
+                <source>Last name</source>
+                <target xml:lang="de">Nachname</target>
+            </trans-unit>
+            <trans-unit id="properties.jobTitle" xml:space="preserve" approved="yes">
+                <source>Job title</source>
+                <target xml:lang="de">Funktion</target>
+            </trans-unit>
+            <trans-unit id="properties.portrait" xml:space="preserve" approved="yes">
+                <source>Portrait</source>
+                <target xml:lang="de">Porträt</target>
+            </trans-unit>
+            <trans-unit id="properties.hasDetailPage" xml:space="preserve" approved="yes">
+                <source>Detail page active</source>
+                <target xml:lang="de">Detailseite aktiv</target>
+            </trans-unit>
+            <trans-unit id="properties.phone" xml:space="preserve" approved="yes">
+                <source>Phone</source>
+                <target xml:lang="de">Telefon</target>
+            </trans-unit>
+            <trans-unit id="properties.email" xml:space="preserve" approved="yes">
+                <source>Email</source>
+                <target xml:lang="de">E-Mail</target>
+            </trans-unit>
+            <trans-unit id="properties.room" xml:space="preserve" approved="yes">
+                <source>Room</source>
+                <target xml:lang="de">Zimmer</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

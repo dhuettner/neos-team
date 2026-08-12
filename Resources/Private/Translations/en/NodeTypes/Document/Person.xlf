@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file original="" product-name="Waterproof.Team" source-language="en" datatype="plaintext">
+        <body>
+            <trans-unit id="ui.label" xml:space="preserve" approved="yes">
+                <source>Person</source>
+            </trans-unit>
+            <trans-unit id="ui.inspector.groups.person" xml:space="preserve" approved="yes">
+                <source>Person</source>
+            </trans-unit>
+            <trans-unit id="ui.inspector.groups.contact" xml:space="preserve" approved="yes">
+                <source>Contact</source>
+            </trans-unit>
+            <trans-unit id="properties.firstName" xml:space="preserve" approved="yes">
+                <source>First name</source>
+            </trans-unit>
+            <trans-unit id="properties.lastName" xml:space="preserve" approved="yes">
+                <source>Last name</source>
+            </trans-unit>
+            <trans-unit id="properties.jobTitle" xml:space="preserve" approved="yes">
+                <source>Job title</source>
+            </trans-unit>
+            <trans-unit id="properties.portrait" xml:space="preserve" approved="yes">
+                <source>Portrait</source>
+            </trans-unit>
+            <trans-unit id="properties.hasDetailPage" xml:space="preserve" approved="yes">
+                <source>Detail page active</source>
+            </trans-unit>
+            <trans-unit id="properties.phone" xml:space="preserve" approved="yes">
+                <source>Phone</source>
+            </trans-unit>
+            <trans-unit id="properties.email" xml:space="preserve" approved="yes">
+                <source>Email</source>
+            </trans-unit>
+            <trans-unit id="properties.room" xml:space="preserve" approved="yes">
+                <source>Room</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

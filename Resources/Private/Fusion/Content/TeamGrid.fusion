@@ -51,6 +51,8 @@ prototype(Waterproof.Team:Content.TeamGrid) < prototype(Neos.Neos:ContentCompone
         entryTags {
             1 = ${Neos.Caching.nodeTag(node)}
             2 = ${Neos.Caching.nodeTypeTag('Waterproof.Team:Document.Person', documentNode)}
+            # Ohne Quelle wird die erste Teamübersicht der Site gesucht.
+            3 = ${Neos.Caching.nodeTypeTag('Waterproof.Team:Document.TeamIndex', documentNode)}
         }
     }
 }

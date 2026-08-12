@@ -1,0 +1,76 @@
+##
+# Teamübersicht als eigene Seite.
+#
+prototype(Waterproof.Team:Document.TeamIndex) < prototype(Neos.Neos:Page) {
+    body {
+        content = Waterproof.Team:Content.TeamIndexBody
+    }
+}
+
+prototype(Waterproof.Team:Content.TeamIndexBody) < prototype(Neos.Fusion:Component) {
+    _persons = ${q(documentNode).children('[instanceof Waterproof.Team:Document.Person]').get()}
+    _columns = ${q(documentNode).property('columns') || 'cols3'}
+
+    renderer = afx`
+        <div class="mx-auto max-w-7xl px-4 py-16">
+            <Waterproof.Team:Component.PersonCollection
+                items={props._persons}
+                columns={props._columns}
+            />
+        </div>
+    `
+}
+
+##
+# Detailseite einer Person.
+#
+# Ist `hasDetailPage` nicht gesetzt, liefert die Seite im Frontend 404.
+# Im Backend bleibt sie bearbeitbar, damit die Redaktion sie vorbereiten kann.
+#
+prototype(Waterproof.Team:Document.Person) < prototype(Neos.Neos:Page) {
+    @context.detailPageActive = ${q(documentNode).property('hasDetailPage')}
+
+    body = Neos.Fusion:Case {
+        disabled {
+            condition = ${!detailPageActive && !renderingMode.isEdit}
+            renderer = Neos.Fusion:Http.ResponseHead {
+                statusCode = 404
+            }
+        }
+        default {
+            condition = true
+            renderer = Waterproof.Team:Content.PersonBody
+        }
+    }
+}
+
+prototype(Waterproof.Team:Content.PersonBody) < prototype(Neos.Fusion:Component) {
+    _name = ${q(documentNode).property('title')}
+    _jobTitle = ${q(documentNode).property('jobTitle')}
+    _portrait = ${q(documentNode).property('portrait')}
+    _phone = ${q(documentNode).property('phone')}
+    _email = ${q(documentNode).property('email')}
+    _room = ${q(documentNode).property('room')}
+
+    renderer = afx`
+        <article class="mx-auto max-w-3xl px-4 py-12">
+            <header class="mb-8 flex flex-col gap-4 md:flex-row md:items-center">
+                <Neos.Neos:ImageTag
+                    asset={props._portrait}
+                    maximumWidth={400}
+                    alt={props._name}
+                    class="w-48 rounded-3xl object-cover"
+                    @if.hasPortrait={props._portrait}
+                />
+                <div class="flex flex-col gap-2">
+                    <h1 class="text-4xl font-bold leading-tight">{props._name}</h1>
+                    <p class="text-lg" @if.hasJob={props._jobTitle}>{props._jobTitle}</p>
+                    <a class="underline" href={'tel:' + props._phone} @if.hasPhone={props._phone}>{props._phone}</a>
+                    <a class="underline" href={'mailto:' + props._email} @if.hasMail={props._email}>{props._email}</a>
+                    <p class="text-sm" @if.hasRoom={props._room}>Zimmer {props._room}</p>
+                </div>
+            </header>
+            <Neos.Neos:ContentCollection nodePath="main" />
+        </article>
+    `
+}

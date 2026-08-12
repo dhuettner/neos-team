@@ -1,0 +1,73 @@
+##
+# Übersetzt den Property-Wert der Spaltenauswahl in vollständige Tailwind-Klassen.
+# Ausgeschrieben, weil zusammengesetzte Klassennamen vom Tailwind-Content-Scan
+# nicht gefunden werden.
+#
+prototype(Waterproof.Team:Component.GridClass) < prototype(Neos.Fusion:Match) {
+    @subject = ${this.columns}
+    columns = 'cols3'
+
+    cols1 = 'grid grid-cols-1 gap-8'
+    cols2 = 'grid grid-cols-1 gap-8 md:grid-cols-2'
+    cols3 = 'grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'
+    cols4 = 'grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4'
+    @default = 'grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'
+}
+
+##
+# Kartendarstellung einer Person in Listen.
+# Flowpack.Listable rendert Einträge über <NodeTypeName>.Short.
+#
+prototype(Waterproof.Team:Document.Person.Short) < prototype(Neos.Fusion:Component) {
+    _person = ${node}
+    _name = ${q(node).property('title')}
+    _jobTitle = ${q(node).property('jobTitle')}
+    _portrait = ${q(node).property('portrait')}
+    _phone = ${q(node).property('phone')}
+    _email = ${q(node).property('email')}
+    _hasDetailPage = ${q(node).property('hasDetailPage')}
+
+    renderer = afx`
+        <article class="flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-sm">
+            <Neos.Neos:ImageTag
+                asset={props._portrait}
+                maximumWidth={600}
+                alt={props._name}
+                loading="lazy"
+                class="aspect-square w-full object-cover"
+                @if.hasPortrait={props._portrait}
+            />
+            <div class="flex flex-1 flex-col gap-2 p-6">
+                <h3 class="text-xl font-bold leading-tight">
+                    <Neos.Neos:NodeLink node={props._person} @if.linked={props._hasDetailPage}>
+                        {props._name}
+                    </Neos.Neos:NodeLink>
+                    <Neos.Fusion:Value value={props._name} @if.plain={!props._hasDetailPage} />
+                </h3>
+                <p class="text-base" @if.hasJob={props._jobTitle}>{props._jobTitle}</p>
+                <a class="text-sm underline" href={'tel:' + props._phone} @if.hasPhone={props._phone}>
+                    {props._phone}
+                </a>
+                <a class="text-sm underline" href={'mailto:' + props._email} @if.hasMail={props._email}>
+                    {props._email}
+                </a>
+            </div>
+        </article>
+    `
+}
+
+##
+# Raster um die Personenkarten.
+# `this` zeigt im Sub-Objekt auf das Sub-Objekt, deshalb wird der gewählte
+# Spaltenwert über @context hereingereicht.
+#
+prototype(Waterproof.Team:Component.PersonCollection) < prototype(Flowpack.Listable:Collection) {
+    columns = 'cols3'
+    @context.selectedColumns = ${this.columns}
+
+    listClass = Waterproof.Team:Component.GridClass {
+        columns = ${selectedColumns}
+    }
+
+    itemClass = 'list-none'
+}

@@ -1,0 +1,62 @@
+##
+# Team-Übersicht als Inhaltselement, einsetzbar auf jeder Seite.
+# Ohne gesetzten Abteilungsfilter werden alle Personen der Quelle gezeigt.
+#
+prototype(Waterproof.Team:Content.TeamGrid) < prototype(Neos.Neos:ContentComponent) {
+    _headline = ${q(node).property('headline')}
+    _columns = ${q(node).property('columns') || 'cols3'}
+    _source = ${q(node).property('source')}
+    _departments = ${q(node).property('departmentFilter')}
+
+    _index = ${this._source ? this._source : q(site).find('[instanceof Waterproof.Team:Document.TeamIndex]').get(0)}
+
+    _allPersons = ${this._index
+        ? q(this._index).children('[instanceof Waterproof.Team:Document.Person]').get()
+        : []}
+
+    # Filterung in Eel statt über eine Fizzle-Bedingung, weil Referenzen
+    # nicht Teil der Property-Filter sind.
+    _persons = ${this._departments
+        ? Array.filter(this._allPersons, person => Array.some(
+            q(person).referenceNodes('taxonomyReferences').get(),
+            taxon => Array.some(this._departments, wanted => wanted == taxon)
+          ))
+        : this._allPersons}
+
+    renderer = afx`
+        <section class="px-4 py-16">
+            <div class="mx-auto max-w-7xl">
+                <h2 class="mb-10 text-center text-3xl font-bold" @if.hasHeadline={props._headline}>
+                    {props._headline}
+                </h2>
+                <Waterproof.Team:Component.PersonCollection
+                    items={props._persons}
+                    columns={props._columns}
+                />
+            </div>
+        </section>
+    `
+}
+
+##
+# Einzelne Person als Ansprechpartner-Block.
+#
+prototype(Waterproof.Team:Content.TeamHighlight) < prototype(Neos.Neos:ContentComponent) {
+    _headline = ${q(node).property('headline')}
+    _person = ${q(node).property('person')}
+
+    renderer = afx`
+        <section class="px-4 py-12" @if.hasPerson={props._person}>
+            <div class="mx-auto max-w-3xl">
+                <h2 class="mb-6 text-2xl font-bold" @if.hasHeadline={props._headline}>
+                    {props._headline}
+                </h2>
+                <Neos.Fusion:Renderer
+                    type="Waterproof.Team:Document.Person.Short"
+                    element.node={props._person}
+                    @context.node={props._person}
+                />
+            </div>
+        </section>
+    `
+}

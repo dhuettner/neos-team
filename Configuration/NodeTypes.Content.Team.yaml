@@ -1,0 +1,76 @@
+'Waterproof.Team:Content.TeamGrid':
+  superTypes:
+    'Neos.Neos:Content': true
+    'Waterproof.Team:Mixin.ColumnLayout': true
+  ui:
+    label: 'Team-Übersicht'
+    icon: 'users'
+    group: 'structure'
+    inspector:
+      groups:
+        team:
+          label: 'Team'
+          position: 10
+        layout:
+          label: 'Darstellung'
+          position: 20
+  properties:
+    headline:
+      type: string
+      defaultValue: 'Unser Team'
+      ui:
+        label: 'Überschrift'
+        inlineEditable: true
+    source:
+      type: reference
+      ui:
+        label: 'Teamübersicht'
+        reloadIfChanged: true
+        inspector:
+          group: 'team'
+          position: 10
+          editorOptions:
+            nodeTypes: ['Waterproof.Team:Document.TeamIndex']
+            placeholder: 'Übersichtsseite wählen'
+    departmentFilter:
+      type: references
+      ui:
+        label: 'Nur diese Abteilungen'
+        reloadIfChanged: true
+        inspector:
+          group: 'team'
+          position: 20
+          editorOptions:
+            nodeTypes: ['Sitegeist.Taxonomy:Taxonomy']
+            startingPoint: '/<Sitegeist.Taxonomy:Root>'
+            placeholder: 'leer lassen für alle'
+
+'Waterproof.Team:Content.TeamHighlight':
+  superTypes:
+    'Neos.Neos:Content': true
+  ui:
+    label: 'Ansprechpartner'
+    icon: 'user'
+    group: 'structure'
+    inspector:
+      groups:
+        person:
+          label: 'Person'
+          position: 10
+  properties:
+    headline:
+      type: string
+      ui:
+        label: 'Überschrift'
+        inlineEditable: true
+    person:
+      type: reference
+      ui:
+        label: 'Person'
+        reloadIfChanged: true
+        inspector:
+          group: 'person'
+          position: 10
+          editorOptions:
+            nodeTypes: ['Waterproof.Team:Document.Person']
+            placeholder: 'Person wählen'

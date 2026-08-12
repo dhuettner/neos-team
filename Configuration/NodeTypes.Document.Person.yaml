@@ -1,0 +1,144 @@
+'Waterproof.Team:Mixin.ColumnLayout':
+  abstract: true
+  properties:
+    columns:
+      type: string
+      defaultValue: 'cols3'
+      ui:
+        label: 'Spalten'
+        reloadIfChanged: true
+        inspector:
+          group: 'layout'
+          position: 10
+          editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
+          editorOptions:
+            values:
+              cols1:
+                label: 'Einspaltig'
+              cols2:
+                label: 'Zweispaltig'
+              cols3:
+                label: 'Dreispaltig'
+              cols4:
+                label: 'Vierspaltig'
+
+'Waterproof.Team:Document.Person':
+  superTypes:
+    'Neos.Neos:Document': true
+  ui:
+    label: 'Person'
+    icon: 'user'
+    inspector:
+      groups:
+        person:
+          label: 'Person'
+          position: 20
+        contact:
+          label: 'Kontakt'
+          position: 30
+        departments:
+          label: 'Abteilungen'
+          position: 40
+  properties:
+    # Der Seitentitel trägt den vollständigen Namen; hier stehen nur die Teile,
+    # die für Sortierung und Anrede getrennt gebraucht werden.
+    firstName:
+      type: string
+      ui:
+        label: 'Vorname'
+        reloadIfChanged: true
+        inspector:
+          group: 'person'
+          position: 10
+    lastName:
+      type: string
+      ui:
+        label: 'Nachname'
+        reloadIfChanged: true
+        inspector:
+          group: 'person'
+          position: 20
+    jobTitle:
+      type: string
+      ui:
+        label: 'Funktion'
+        reloadIfChanged: true
+        inspector:
+          group: 'person'
+          position: 30
+    portrait:
+      type: 'Neos\Media\Domain\Model\ImageInterface'
+      ui:
+        label: 'Porträt'
+        reloadIfChanged: true
+        inspector:
+          group: 'person'
+          position: 40
+    hasDetailPage:
+      type: boolean
+      defaultValue: false
+      ui:
+        label: 'Detailseite aktiv'
+        reloadIfChanged: true
+        inspector:
+          group: 'person'
+          position: 50
+        help:
+          message: 'Ist die Detailseite aus, verlinken die Kacheln nicht und die Seite ist nicht aufrufbar.'
+    phone:
+      type: string
+      ui:
+        label: 'Telefon'
+        inspector:
+          group: 'contact'
+          position: 10
+    email:
+      type: string
+      ui:
+        label: 'E-Mail'
+        inspector:
+          group: 'contact'
+          position: 20
+      validation:
+        'Neos.Neos/Validation/EmailAddressValidator': []
+    room:
+      type: string
+      ui:
+        label: 'Zimmer'
+        inspector:
+          group: 'contact'
+          position: 30
+    taxonomyReferences:
+      type: references
+      ui:
+        label: 'Abteilungen'
+        reloadIfChanged: true
+        inspector:
+          group: 'departments'
+          editorOptions:
+            nodeTypes: ['Sitegeist.Taxonomy:Taxonomy']
+            startingPoint: '/<Sitegeist.Taxonomy:Root>'
+            placeholder: 'Abteilungen zuweisen'
+  childNodes:
+    main:
+      type: 'Neos.Neos:ContentCollection'
+
+'Waterproof.Team:Document.TeamIndex':
+  superTypes:
+    'Neos.Neos:Document': true
+    'Waterproof.Team:Mixin.ColumnLayout': true
+  ui:
+    label: 'Teamübersicht'
+    icon: 'users'
+    inspector:
+      groups:
+        layout:
+          label: 'Darstellung'
+          position: 20
+  constraints:
+    nodeTypes:
+      '*': false
+      'Waterproof.Team:Document.Person': true
+  childNodes:
+    main:
+      type: 'Neos.Neos:ContentCollection'

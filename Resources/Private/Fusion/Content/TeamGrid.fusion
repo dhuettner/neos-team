@@ -69,19 +69,29 @@ prototype(Waterproof.Team:Content.TeamHighlight) < prototype(Neos.Neos:ContentCo
     _headline = ${q(node).property('headline')}
     _person = ${q(node).referenceNodes('person').get(0)}
 
-    renderer = afx`
-        <section class="px-4 py-12" @if.hasPerson={props._person}>
-            <div class="mx-auto max-w-3xl">
+    # Neos.Fusion:Renderer erwartet unter `renderer` ein Fusion-Objekt; ein
+    # `type` kennt der Prototyp nicht. Deshalb steht der Block als
+    # Fusion-Objekt statt in AFX.
+    renderer = Neos.Fusion:Join {
+        heading = Neos.Fusion:Component {
+            _headline = ${q(node).property('headline')}
+            renderer = afx`
                 <h2 class="mb-6 text-2xl font-bold" @if.hasHeadline={props._headline}>
                     {props._headline}
                 </h2>
-                <Neos.Fusion:Renderer
-                    type="Waterproof.Team:Document.Person.Short"
-                    @context.node={props._person}
-                />
-            </div>
-        </section>
-    `
+            `
+        }
+
+        # @context wird vor @if ausgewertet: Innerhalb dieses Objekts zeigt
+        # `node` bereits auf die Person. Eine Bedingung, die von der
+        # Referenz des Inhaltsknotens abhängt, gehört deshalb an den Join.
+        person = Waterproof.Team:Document.Person.Short {
+            @context.node = ${q(node).referenceNodes('person').get(0)}
+        }
+
+        @process.wrap = ${'<section class="px-4 py-12"><div class="mx-auto max-w-3xl">' + value + '</div></section>'}
+        @if.hasPerson = ${q(node).referenceNodes('person').get(0)}
+    }
 
     @cache {
         mode = 'cached'

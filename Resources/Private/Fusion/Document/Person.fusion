@@ -1,6 +1,3 @@
-##
-# Teamübersicht als eigene Seite.
-#
 prototype(Waterproof.Team:Document.TeamIndex) < prototype(Neos.Neos:Page) {
     body {
         content = Waterproof.Team:Content.TeamIndexBody
@@ -16,7 +13,6 @@ prototype(Waterproof.Team:Content.TeamIndexBody) < prototype(Neos.Fusion:Compone
         </div>
     `
 
-    # Ohne Tag am Teilbaum bliebe die Liste stehen, bis der Cache geleert wird.
     @cache {
         mode = 'cached'
         entryIdentifier {
@@ -29,15 +25,8 @@ prototype(Waterproof.Team:Content.TeamIndexBody) < prototype(Neos.Fusion:Compone
     }
 }
 
-##
-# Detailseite einer Person.
-#
-# Ist `hasDetailPage` nicht gesetzt, antwortet die Seite im Frontend mit 404.
-# Der Statuscode wird am Page-Objekt gesetzt, nicht im Body: `body` bleibt
-# der Join aus Neos.Neos:Page, sonst verschwindet dessen Unterpfad
-# `javascripts` und damit alles, was ein Site-Package dort einhängt.
-# Im Backend bleibt die Seite bearbeitbar, damit die Redaktion sie vorbereiten kann.
-#
+# Status code belongs on the page object. Replacing `body` with a Case would
+# drop its `javascripts` join and with it everything a site package adds.
 prototype(Waterproof.Team:Document.Person) < prototype(Neos.Neos:Page) {
     @context.detailPageActive = ${q(documentNode).property('hasDetailPage')}
 
@@ -57,10 +46,6 @@ prototype(Waterproof.Team:Document.Person) < prototype(Neos.Neos:Page) {
     }
 }
 
-##
-# Ausgabe für abgeschaltete Detailseiten. Bewusst schlicht; ein Site-Package
-# überschreibt sie mit seiner eigenen Fehlerseite.
-#
 prototype(Waterproof.Team:Content.PersonNotFound) < prototype(Neos.Fusion:Component) {
     renderer = afx`
         <div class="mx-auto max-w-3xl px-4 py-24 text-center">

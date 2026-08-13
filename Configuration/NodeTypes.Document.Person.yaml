@@ -25,7 +25,6 @@
 'Waterproof.Team:Document.Person':
   superTypes:
     'Neos.Neos:Document': true
-    # Liefert taxonomyReferences samt Sitegeist-Editor mit.
     'Sitegeist.Taxonomy:Mixin.TaxonomyReferences': true
   ui:
     label: i18n
@@ -39,8 +38,6 @@
           label: i18n
           position: 30
   properties:
-    # Der Seitentitel trägt den vollständigen Namen; hier stehen nur die Teile,
-    # die für Sortierung und Anrede getrennt gebraucht werden.
     firstName:
       type: string
       ui:

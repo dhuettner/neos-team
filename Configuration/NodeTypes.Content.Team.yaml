@@ -42,8 +42,6 @@
         inspector:
           group: 'team'
           position: 20
-          # Ohne den Sitegeist-Editor durchsucht der Standard-Referenz-Editor
-          # den Site-Teilbaum und findet keine Taxonomien.
           editor: 'Sitegeist.Taxonomy:TaxonomyEditor'
           editorOptions:
             nodeTypes: ['Sitegeist.Taxonomy:Taxonomy']

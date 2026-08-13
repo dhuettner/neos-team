@@ -1,12 +1,6 @@
-##
-# Team-Übersicht als Inhaltselement, einsetzbar auf jeder Seite.
-# Ohne gesetzten Abteilungsfilter werden alle Personen der Quelle gezeigt.
-#
 prototype(Waterproof.Team:Content.TeamGrid) < prototype(Neos.Neos:ContentComponent) {
     _headline = ${q(node).property('headline')}
     _columns = ${q(node).property('columns') || 'cols3'}
-    # Referenzen über referenceNodes() lesen; property() greift dafür nur
-    # über eine als deprecated markierte Rückfallebene.
     _source = ${q(node).referenceNodes('source').get(0)}
     _departments = ${q(node).referenceNodes('departmentFilter').get()}
 
@@ -16,18 +10,9 @@ prototype(Waterproof.Team:Content.TeamGrid) < prototype(Neos.Neos:ContentCompone
         ? q(this._index).children('[instanceof Waterproof.Team:Document.Person]').get()
         : []}
 
-    # Gefiltert wird von der Taxonomie aus: backReferenceNodes liefert alle
-    # Knoten, die auf die gewählten Abteilungen verweisen.
-    #
-    # Bewusst kein Array.filter mit Eel-Closure. Zwei Anläufe scheiterten:
-    # 1. ${this._departmentIds} innerhalb der Closure löst nicht auf.
-    # 2. Der Umweg über @context ebenfalls nicht, weil @context ausgewertet
-    #    wird, bevor die Properties des Prototyps vorliegen — ${this.…} ist
-    #    dort noch leer.
-    # Beide Male war das Prädikat immer wahr und der Filter stillschweigend
-    # wirkungslos; die Liste sah dabei vollständig und plausibel aus.
-    # Kontextvariablen aus dem Request funktionieren in Closures dagegen,
-    # siehe den Kategoriefilter in Waterproof.News.
+    # Filtered from the taxonomy side. Inside an Eel closure neither this.*
+    # nor an @context variable resolves, so a closure predicate would always
+    # be true and the filter silently useless.
     _persons = ${Array.length(this._departments) > 0
         ? q(this._departments).backReferenceNodes('taxonomyReferences').filter('[instanceof Waterproof.Team:Document.Person]').get()
         : this._allPersons}
@@ -46,8 +31,6 @@ prototype(Waterproof.Team:Content.TeamGrid) < prototype(Neos.Neos:ContentCompone
         </section>
     `
 
-    # Liest aus einem fremden Teilbaum, deshalb zusätzlich der Node-Typ-Tag:
-    # er greift bei jeder Änderung an einer Person, unabhängig von ihrem Ort.
     @cache {
         mode = 'cached'
         entryIdentifier {
@@ -56,22 +39,15 @@ prototype(Waterproof.Team:Content.TeamGrid) < prototype(Neos.Neos:ContentCompone
         entryTags {
             1 = ${Neos.Caching.nodeTag(node)}
             2 = ${Neos.Caching.nodeTypeTag('Waterproof.Team:Document.Person', documentNode)}
-            # Ohne Quelle wird die erste Teamübersicht der Site gesucht.
             3 = ${Neos.Caching.nodeTypeTag('Waterproof.Team:Document.TeamIndex', documentNode)}
         }
     }
 }
 
-##
-# Einzelne Person als Ansprechpartner-Block.
-#
 prototype(Waterproof.Team:Content.TeamHighlight) < prototype(Neos.Neos:ContentComponent) {
     _headline = ${q(node).property('headline')}
     _person = ${q(node).referenceNodes('person').get(0)}
 
-    # Neos.Fusion:Renderer erwartet unter `renderer` ein Fusion-Objekt; ein
-    # `type` kennt der Prototyp nicht. Deshalb steht der Block als
-    # Fusion-Objekt statt in AFX.
     renderer = Neos.Fusion:Join {
         heading = Neos.Fusion:Component {
             _headline = ${q(node).property('headline')}
@@ -82,9 +58,6 @@ prototype(Waterproof.Team:Content.TeamHighlight) < prototype(Neos.Neos:ContentCo
             `
         }
 
-        # @context wird vor @if ausgewertet: Innerhalb dieses Objekts zeigt
-        # `node` bereits auf die Person. Eine Bedingung, die von der
-        # Referenz des Inhaltsknotens abhängt, gehört deshalb an den Join.
         person = Waterproof.Team:Document.Person.Short {
             @context.node = ${q(node).referenceNodes('person').get(0)}
         }

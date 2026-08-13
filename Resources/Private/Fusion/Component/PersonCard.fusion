@@ -1,8 +1,5 @@
-##
-# Übersetzt den Property-Wert der Spaltenauswahl in vollständige Tailwind-Klassen.
-# Ausgeschrieben, weil zusammengesetzte Klassennamen vom Tailwind-Content-Scan
-# nicht gefunden werden.
-#
+# Class names are written out: Tailwind scans source text, a composed name
+# like 'grid-cols-' + columns is never found.
 prototype(Waterproof.Team:Component.GridClass) < prototype(Neos.Fusion:Match) {
     @subject = ${this.columns}
     columns = 'cols3'
@@ -14,14 +11,6 @@ prototype(Waterproof.Team:Component.GridClass) < prototype(Neos.Fusion:Match) {
     @default = 'grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'
 }
 
-##
-# Kartendarstellung einer Person in Listen.
-# Flowpack.Listable rendert Einträge über <NodeTypeName>.Short.
-#
-# Neos.Neos:ImageTag und Neos.Neos:NodeLink erben von Neos.Fusion:Tag und
-# rendern nur den Teilbaum `attributes`. Ein direktes class= oder alt= würde
-# still verworfen.
-#
 prototype(Waterproof.Team:Document.Person.Short) < prototype(Neos.Fusion:Component) {
     _person = ${node}
     _name = ${q(node).property('title')}
@@ -59,13 +48,6 @@ prototype(Waterproof.Team:Document.Person.Short) < prototype(Neos.Fusion:Compone
     `
 }
 
-##
-# Raster um die Personenkarten.
-#
-# Die Spaltenwahl kommt aus documentNode und ist am Nutzungsort
-# überschreibbar. Über @context von außen hereingereichte Werte wären beim
-# Rendern aus einem dynamischen Cache-Segment verloren.
-#
 prototype(Waterproof.Team:Component.PersonCollection) < prototype(Flowpack.Listable:Collection) {
     columns = ${q(documentNode).property('columns') || 'cols3'}
     @context.selectedColumns = ${this.columns}

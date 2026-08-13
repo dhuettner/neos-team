@@ -3,7 +3,10 @@
     <file original="" product-name="Waterproof.Team" source-language="en" datatype="plaintext">
         <body>
             <trans-unit id="ui.label" xml:space="preserve" approved="yes">
-                <source>Team grid</source>
+                <source>Team overview (Team)</source>
+            </trans-unit>
+            <trans-unit id="ui.help.message" xml:space="preserve" approved="yes">
+                <source>Shows the people of a team index as a grid, optionally limited to selected departments.</source>
             </trans-unit>
             <trans-unit id="ui.inspector.groups.team" xml:space="preserve" approved="yes">
                 <source>Team</source>

@@ -3,8 +3,12 @@
     <file original="" product-name="Waterproof.Team" source-language="en" datatype="plaintext" target-language="de">
         <body>
             <trans-unit id="ui.label" xml:space="preserve" approved="yes">
-                <source>Contact person</source>
-                <target xml:lang="de">Ansprechpartner</target>
+                <source>Contact person (Team)</source>
+                <target xml:lang="de">Ansprechpartner (Team)</target>
+            </trans-unit>
+            <trans-unit id="ui.help.message" xml:space="preserve" approved="yes">
+                <source>Highlights a single person from the team index, for example as the contact for a topic.</source>
+                <target xml:lang="de">Hebt eine einzelne Person aus der Teamübersicht hervor, etwa als Ansprechpartner für ein Thema.</target>
             </trans-unit>
             <trans-unit id="ui.inspector.groups.person" xml:space="preserve" approved="yes">
                 <source>Person</source>

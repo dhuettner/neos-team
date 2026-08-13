@@ -3,7 +3,10 @@
     <file original="" product-name="Waterproof.Team" source-language="en" datatype="plaintext">
         <body>
             <trans-unit id="ui.label" xml:space="preserve" approved="yes">
-                <source>Contact person</source>
+                <source>Contact person (Team)</source>
+            </trans-unit>
+            <trans-unit id="ui.help.message" xml:space="preserve" approved="yes">
+                <source>Highlights a single person from the team index, for example as the contact for a topic.</source>
             </trans-unit>
             <trans-unit id="ui.inspector.groups.person" xml:space="preserve" approved="yes">
                 <source>Person</source>

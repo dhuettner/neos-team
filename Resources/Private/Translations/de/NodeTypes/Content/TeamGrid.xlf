@@ -3,8 +3,12 @@
     <file original="" product-name="Waterproof.Team" source-language="en" datatype="plaintext" target-language="de">
         <body>
             <trans-unit id="ui.label" xml:space="preserve" approved="yes">
-                <source>Team grid</source>
-                <target xml:lang="de">Team-Übersicht</target>
+                <source>Team overview (Team)</source>
+                <target xml:lang="de">Team-Übersicht (Team)</target>
+            </trans-unit>
+            <trans-unit id="ui.help.message" xml:space="preserve" approved="yes">
+                <source>Shows the people of a team index as a grid, optionally limited to selected departments.</source>
+                <target xml:lang="de">Zeigt die Personen einer Teamübersicht als Raster. Optional auf einzelne Abteilungen eingegrenzt; Spaltenzahl wählbar.</target>
             </trans-unit>
             <trans-unit id="ui.inspector.groups.team" xml:space="preserve" approved="yes">
                 <source>Team</source>

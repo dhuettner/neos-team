@@ -6,6 +6,8 @@
     label: i18n
     icon: 'users'
     group: 'structure'
+    help:
+      message: i18n
     inspector:
       groups:
         team:
@@ -55,6 +57,8 @@
     label: i18n
     icon: 'user'
     group: 'structure'
+    help:
+      message: i18n
     inspector:
       groups:
         person:

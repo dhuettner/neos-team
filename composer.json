@@ -1,7 +1,7 @@
 {
     "name": "waterproof/neos-team",
     "type": "neos-package",
-    "description": "Team- und Personenverwaltung für Neos CMS 9 mit zentraler Pflege und abschaltbaren Detailseiten",
+    "description": "Team and people management for Neos CMS 9 with central maintenance and optional detail pages",
     "keywords": [
         "neos",
         "neos-cms",
@@ -11,7 +11,7 @@
         "fusion",
         "afx"
     ],
-    "homepage": "https://github.com/dhuettner/neos-team",
+    "homepage": "https://waterproof.agency/",
     "license": "MIT",
     "authors": [
         {

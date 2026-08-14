@@ -1,8 +1,13 @@
 # Waterproof.Team
 
-Team- und Personenverwaltung für **Neos CMS 9**. Personen sind Dokument-Knoten und werden zentral gepflegt; Übersichten und Ansprechpartner-Blöcke greifen darauf zu, ohne dass Daten doppelt entstehen. Abteilungen laufen über [Sitegeist.Taxonomy](https://github.com/sitegeist/Sitegeist.Taxonomy), Listen über [Flowpack.Listable](https://github.com/Flowpack/Flowpack.Listable).
+Team and people management for **Neos CMS 9**. People are document nodes and are
+maintained in one place. Overviews and contact blocks read from there, so no
+data is entered twice. Departments run on
+[Sitegeist.Taxonomy](https://github.com/sitegeist/Sitegeist.Taxonomy), lists on
+[Flowpack.Listable](https://github.com/Flowpack/Flowpack.Listable).
 
-Das Paket liefert **Struktur, kein Design**: Markup mit Tailwind-Klassen, keine eigene CSS-Datei und kein eigener Build.
+The package ships **structure, not design**. Markup carries Tailwind class names,
+there is no CSS file and no build step of its own.
 
 ## Installation
 
@@ -13,11 +18,14 @@ composer require waterproof/neos-team
 ./flow resource:publish
 ```
 
-Die drei Befehle nach dem Require sind unter DDEV Pflicht: Das Composer-Plugin schreibt den Paket-Cache nach `Data/Temporary/`, Flow liest ihn aus `/tmp/Flow/`. Ohne `package:rescan` bleibt das Paket unsichtbar.
+The three commands after the require are mandatory under DDEV. The Composer
+plugin writes the package cache to `Data/Temporary/`, while Flow reads it from
+`/tmp/Flow/`. Without `package:rescan` the package stays invisible.
 
-### Tailwind einrichten — sonst bleibt alles ungestylt
+### Set up Tailwind, or everything stays unstyled
 
-Die Fusion-Dateien liegen außerhalb deines Site-Packages, Tailwind findet Klassen aber nur in Dateien aus dem `content`-Glob. Ergänze in deiner `tailwind.config.js`:
+The Fusion files live outside your site package, and Tailwind only finds class
+names in files from its `content` glob. Add this to your `tailwind.config.js`:
 
 ```js
 content: [
@@ -27,42 +35,49 @@ content: [
 ],
 ```
 
-Ohne diesen Eintrag ist das Paket funktionsfähig, aber ohne Layout.
+Without that entry the package works, but arrives without any layout.
 
-## Node-Typen
+## Node types
 
-| Node-Typ | Backend-Label | Zweck |
+| Node type | Backend label | Purpose |
 |---|---|---|
-| `Waterproof.Team:Document.Person` | Person | Einzelne Person mit Funktion, Porträt, Kontaktdaten, optionaler Detailseite |
-| `Waterproof.Team:Document.TeamIndex` | Teamübersicht | Elternseite, listet die Personen darunter |
-| `Waterproof.Team:Content.TeamGrid` | Team-Übersicht | Raster, optional auf Abteilungen eingegrenzt |
-| `Waterproof.Team:Content.TeamHighlight` | Ansprechpartner | Einzelne Person auf beliebiger Seite |
+| `Waterproof.Team:Document.Person` | Person | One person with role, portrait, contact details, optional detail page |
+| `Waterproof.Team:Document.TeamIndex` | Teamübersicht | Parent page, lists the people below it |
+| `Waterproof.Team:Content.TeamGrid` | Team-Übersicht | Grid, optionally limited to departments |
+| `Waterproof.Team:Content.TeamHighlight` | Ansprechpartner | A single person on any page |
 
-## Detailseiten
+## Detail pages
 
-Jede Person trägt die Eigenschaft `hasDetailPage`, standardmäßig aus:
+Every person carries the `hasDetailPage` property, switched off by default:
 
-- **aus:** Kacheln verlinken nicht, der direkte Aufruf antwortet im Frontend mit 404. Im Backend bleibt die Seite bearbeitbar, damit sie vorbereitet werden kann.
-- **an:** Die Person bekommt eine reguläre Seite mit eigenem Inhaltsbereich.
+- **off:** cards do not link, a direct call answers with 404 in the frontend.
+  The page stays editable in the backend so it can be prepared.
+- **on:** the person gets a regular page with its own content area.
 
-## Spaltenwahl
+## Column choice
 
-`Document.TeamIndex` und `Content.TeamGrid` besitzen die Eigenschaft `columns` mit den Werten `cols1` bis `cols4` (Standard `cols3`). Die Klassen stehen in `Component/PersonCard.fusion` ausgeschrieben; zusammengesetzte Klassennamen wären für den Tailwind-Scanner unsichtbar.
+`Document.TeamIndex` and `Content.TeamGrid` carry a `columns` property with the
+values `cols1` to `cols4`, default `cols3`. The class names are written out in
+`Component/PersonCard.fusion`, because composed class names would be invisible
+to the Tailwind scanner.
 
-## Eigenes Design einsetzen
+## Apply your own design
 
-| Prototyp | Zuständig für |
+| Prototype | Responsible for |
 |---|---|
-| `Waterproof.Team:Document.Person.Short` | Kartendarstellung in Listen |
-| `Waterproof.Team:Content.PersonBody` | Detailseite |
-| `Waterproof.Team:Content.PersonNotFound` | Ausgabe bei abgeschalteter Detailseite |
-| `Waterproof.Team:Component.PersonCollection` | Raster um die Karten |
-| `Waterproof.Team:Component.GridClass` | Zuordnung Spaltenwert zu Klassen |
+| `Waterproof.Team:Document.Person.Short` | Card in listings |
+| `Waterproof.Team:Content.PersonBody` | Detail page |
+| `Waterproof.Team:Content.PersonNotFound` | Output when the detail page is switched off |
+| `Waterproof.Team:Component.PersonCollection` | Grid around the cards |
+| `Waterproof.Team:Component.GridClass` | Mapping of column value to classes |
 
-## Sprachen
+## Languages
 
-Backend-Labels liegen als XLIFF in `Resources/Private/Translations/` für Deutsch und Englisch vor.
+Backend labels ship as XLIFF in `Resources/Private/Translations/` for German and
+English.
 
-## Lizenz
+## License
 
 MIT.
+
+Built and maintained by [waterproof.agency](https://waterproof.agency/).

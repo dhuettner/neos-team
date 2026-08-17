@@ -6,11 +6,11 @@
                 <source>Person</source>
                 <target xml:lang="de">Person</target>
             </trans-unit>
-            <trans-unit id="ui.inspector.groups.person" xml:space="preserve" approved="yes">
+            <trans-unit id="groups.person" xml:space="preserve" approved="yes">
                 <source>Person</source>
                 <target xml:lang="de">Person</target>
             </trans-unit>
-            <trans-unit id="ui.inspector.groups.contact" xml:space="preserve" approved="yes">
+            <trans-unit id="groups.contact" xml:space="preserve" approved="yes">
                 <source>Contact</source>
                 <target xml:lang="de">Kontakt</target>
             </trans-unit>

@@ -3,3 +3,12 @@ Neos:
     fusion:
       autoInclude:
         Waterproof.Team: true
+
+    # Ohne diesen Eintrag erreichen die XLIFF-Kataloge das Backend-JavaScript
+    # nicht. Der Inspector zeigt dann statt der Beschriftungen den rohen
+    # Übersetzungsschlüssel.
+    userInterface:
+      translation:
+        autoInclude:
+          Waterproof.Team:
+            - 'NodeTypes/*'

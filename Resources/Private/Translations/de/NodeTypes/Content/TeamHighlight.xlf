@@ -10,7 +10,7 @@
                 <source>Highlights a single person from the team index, for example as the contact for a topic.</source>
                 <target xml:lang="de">Hebt eine einzelne Person aus der Teamübersicht hervor, etwa als Ansprechpartner für ein Thema.</target>
             </trans-unit>
-            <trans-unit id="ui.inspector.groups.person" xml:space="preserve" approved="yes">
+            <trans-unit id="groups.person" xml:space="preserve" approved="yes">
                 <source>Person</source>
                 <target xml:lang="de">Person</target>
             </trans-unit>

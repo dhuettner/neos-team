@@ -10,11 +10,11 @@
                 <source>Shows the people of a team index as a grid, optionally limited to selected departments.</source>
                 <target xml:lang="de">Zeigt die Personen einer Teamübersicht als Raster. Optional auf einzelne Abteilungen eingegrenzt; Spaltenzahl wählbar.</target>
             </trans-unit>
-            <trans-unit id="ui.inspector.groups.team" xml:space="preserve" approved="yes">
+            <trans-unit id="groups.team" xml:space="preserve" approved="yes">
                 <source>Team</source>
                 <target xml:lang="de">Team</target>
             </trans-unit>
-            <trans-unit id="ui.inspector.groups.layout" xml:space="preserve" approved="yes">
+            <trans-unit id="groups.layout" xml:space="preserve" approved="yes">
                 <source>Appearance</source>
                 <target xml:lang="de">Darstellung</target>
             </trans-unit>

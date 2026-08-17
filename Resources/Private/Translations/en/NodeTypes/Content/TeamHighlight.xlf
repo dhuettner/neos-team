@@ -8,7 +8,7 @@
             <trans-unit id="ui.help.message" xml:space="preserve" approved="yes">
                 <source>Highlights a single person from the team index, for example as the contact for a topic.</source>
             </trans-unit>
-            <trans-unit id="ui.inspector.groups.person" xml:space="preserve" approved="yes">
+            <trans-unit id="groups.person" xml:space="preserve" approved="yes">
                 <source>Person</source>
             </trans-unit>
             <trans-unit id="properties.headline" xml:space="preserve" approved="yes">

@@ -9,6 +9,41 @@ data is entered twice. Departments run on
 The package ships **structure, not design**. Markup carries Tailwind class names,
 there is no CSS file and no build step of its own.
 
+## When to use it, and when not
+
+Use it when the same people appear in several places — an overview page, a
+contact block in a sidebar, a department listing — and you want them maintained
+once. Detail pages are optional per person, so a team of forty can have three
+profiles and thirty-seven plain cards.
+
+Do not use it when:
+
+- **Your project has no Tailwind build.** The markup carries nothing but Tailwind
+  class names and arrives unstyled without it.
+- **People need accounts.** These are content nodes, not Neos users. There is no
+  connection to authentication, roles or a member area.
+- **You need vCard export, org charts or reporting lines.** The package stores
+  flat records with a department taxonomy. Hierarchy is not modelled.
+- **Contact data must stay out of the public HTML.** Phone and mail addresses are
+  rendered as plain links, with no obfuscation.
+
+## Requirements
+
+| Component | Version | Note |
+|---|---|---|
+| Neos CMS | 9.0 – 9.1 | Tested against 9.1.8 |
+| PHP | >= 8.2 | Inherited from `neos/neos`; tested on 8.3 |
+| Flowpack.Listable | ^4.0 | Listing |
+| Sitegeist.Taxonomy | ^2.0 | Departments |
+| Tailwind CSS | 3.x | In the site package, not here |
+
+Neos 9.2 is **not** tested. It changes the content graph schema, so treat
+compatibility as open until someone has run it.
+
+**Your site package must bring its own content node types.** The Neos base
+distribution ships no text or image element. Without one, a person detail page
+renders its header and an empty content area.
+
 ## Installation
 
 ```bash
@@ -43,8 +78,8 @@ Without that entry the package works, but arrives without any layout.
 |---|---|---|
 | `Waterproof.Team:Document.Person` | Person | One person with role, portrait, contact details, optional detail page |
 | `Waterproof.Team:Document.TeamIndex` | Teamübersicht | Parent page, lists the people below it |
-| `Waterproof.Team:Content.TeamGrid` | Team-Übersicht | Grid, optionally limited to departments |
-| `Waterproof.Team:Content.TeamHighlight` | Ansprechpartner | A single person on any page |
+| `Waterproof.Team:Content.TeamGrid` | Team-Übersicht (Team) | Grid, optionally limited to departments |
+| `Waterproof.Team:Content.TeamHighlight` | Ansprechpartner (Team) | A single person on any page |
 
 ## Detail pages
 
@@ -66,6 +101,7 @@ to the Tailwind scanner.
 | Prototype | Responsible for |
 |---|---|
 | `Waterproof.Team:Document.Person.Short` | Card in listings |
+| `Waterproof.Team:Content.TeamIndexBody` | List body of the index |
 | `Waterproof.Team:Content.PersonBody` | Detail page |
 | `Waterproof.Team:Content.PersonNotFound` | Output when the detail page is switched off |
 | `Waterproof.Team:Component.PersonCollection` | Grid around the cards |
@@ -76,8 +112,12 @@ to the Tailwind scanner.
 Backend labels ship as XLIFF in `Resources/Private/Translations/` for German and
 English.
 
+## Changelog
+
+Release history and upgrade notes are in [CHANGELOG.md](CHANGELOG.md).
+
 ## License
 
 MIT.
 
-Built and maintained by [waterproof.agency](https://waterproof.agency/).
+Built and maintained by [waterproof.agency](https://waterproof.agency/cms/neos).
